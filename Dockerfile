@@ -1,3 +1,3 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-mysql:branch-mysql
 
-# add your tools here ...
+ENV x=2

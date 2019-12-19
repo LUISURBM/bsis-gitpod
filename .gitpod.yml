@@ -1,8 +1,28 @@
+image:
+  file: Dockerfile
+
 # exposed ports
 ports:
-- port: 8080
-  onOpen: open-preview
+  - port: 8001
+    onOpen: ignore
+  - port: 3306
+    onOpen: open-browser
+  - port: 60584
+    onOpen: ignore
+  - port: 9000
+    onOpen: ignore
 # start up tasks
 tasks:
-- init: ./mvnw package -DskipTests
-  command: java -jar target/*.jar
+  - init: composer install
+    command: echo "Hallo"
+  - name: MySQL
+    command: >
+      mysqld
+  - init: ./mvnw package -DskipTests
+    command: java -jar target/*.jar
+  - name: bsis spring-boot
+    command: >
+      cd complete && mvn clean install compile -DSkipTests=true && mvn spring-boot:run
+  - name: bsis front-end
+    command: >
+      cd bsis-frontend && npm install -g grunt-cli && grunt serve --force
