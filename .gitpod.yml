@@ -17,7 +17,7 @@ tasks:
     command: echo "Hallo"
   - name: MySQL
     command: >
-      mysqld
+        mysqld
   - init: ./mvnw package -DskipTests
     command: java -jar target/*.jar
   - name: bsis spring-boot
